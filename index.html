@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GigPro | Premium Freelance Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Premium Corporate Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* SaaS / Fiverr Professional Color Palette */
+        :root {
+            --primary: #1dbf73;
+            --primary-dark: #19a463;
+            --primary-light: #f0fbf6;
+            --bg-base: #ffffff;
+            --bg-surface: #f7f9fa;
+            --text-main: #222325;
+            --text-muted: #62646a;
+            --text-light: #95979d;
+            --border: #e4e5e7;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
+            
+            --font-sans: 'Inter', sans-serif;
+            --radius-md: 12px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        /* Top Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-brand i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-download-btn {
+            background: white;
+            color: var(--primary) !important;
+            border: 1px solid var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 700 !important;
+        }
+
+        .nav-download-btn:hover {
+            background: var(--primary);
+            color: white !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-main);
+            transition: 0.3s ease;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--bg-base);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 140px 5% 80px;
+            background: linear-gradient(180deg, var(--primary-light) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        .pill-badge {
+            background: white;
+            color: var(--primary-dark);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 1px solid rgba(29, 191, 115, 0.2);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+            box-shadow: 0 4px 14px rgba(29, 191, 115, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-surface);
+            transform: translateY(-2px);
+        }
+
+        /* Stats Metrics */
+        .metrics-container {
+            background: white;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 5%;
+        }
+
+        .metrics-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .metric-item h4 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* General Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #d1d5db;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Interface Showcase (App Store Style) */
+        .showcase-bg {
+            background: var(--bg-surface);
+        }
+
+        .screenshot-wrapper {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .screenshot-grid {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 2rem;
+            scrollbar-width: none;
+        }
+
+        .screenshot-grid::-webkit-scrollbar { display: none; }
+
+        .screenshot-item {
+            flex: 0 0 calc(25% - 18px);
+            scroll-snap-align: center;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Enterprise Security Banner */
+        .security-banner {
+            background: #0f172a; 
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 4rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .security-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .security-content p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .security-list {
+            list-style: none;
+        }
+
+        .security-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+            color: #e2e8f0;
+        }
+
+        .security-list i {
+            color: var(--primary);
+            margin-top: 4px;
+        }
+
+        .security-icon {
+            font-size: 12rem;
+            color: rgba(255,255,255,0.05);
+        }
+
+        /* Final Download CTA */
+        .download-box {
+            text-align: center;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 4rem 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .download-box i.app-logo {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: 20px;
+        }
+
+        .file-meta {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid var(--border);
+            background: white;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Image Modal */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(34, 35, 37, 0.95);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active { opacity: 1; pointer-events: all; }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 12px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 992px) {
+            .security-banner { flex-direction: column; text-align: center; }
+            .security-content p { margin: 0 auto 2rem; }
+            .security-list li { text-align: left; }
+            .security-icon { display: none; }
+            .screenshot-item { flex: 0 0 calc(50% - 12px); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: flex; }
+            .cta-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
+            .screenshot-item { flex: 0 0 80%; } 
+            header { padding-top: 140px; }
+            .metrics-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .hero-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav id="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-layer-group"></i>
+            <span>GIGPRO</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#platform">How it Works</a></li>
+            <li><a href="#interface">App Preview</a></li>
+            <li><a href="#security">Trust & Safety</a></li>
+            <li><a href="gigpro.apk" class="nav-download-btn" download>Get the App</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#platform" class="menu-item">How it Works</a>
+        <a href="#interface" class="menu-item">App Preview</a>
+        <a href="#security" class="menu-item">Trust & Safety</a>
+        <a href="gigpro.apk" download class="menu-item" style="color: var(--primary);">Download App</a>
+    </div>
+
+    <!-- Hero Section (B2B SaaS Positioning) -->
+    <header>
+        <div class="pill-badge reveal">
+            <i class="fas fa-rocket"></i> GigPro Mobile App v2.0 Live
+        </div>
+        <h1 class="hero-title reveal">Hire the World's Top Freelance Talent, <br><span>Right From Your Pocket.</span></h1>
+        <p class="hero-subtitle reveal">Connect with vetted professionals, manage enterprise-grade projects, and scale your business with zero friction. The ultimate freelance ecosystem built for modern teams.</p>
+        <div class="cta-group reveal">
+            <a href="gigpro.apk" download class="btn btn-primary"><i class="fab fa-android"></i> Download App Free</a>
+            <a href="#platform" class="btn btn-secondary">See How it Works</a>
+        </div>
+    </header>
+
+    <!-- Platform Metrics (Trust Signals) -->
+    <div class="metrics-container reveal">
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <h4>10K+</h4>
+                <p>Vetted Experts</p>
+            </div>
+            <div class="metric-item">
+                <h4>99%</h4>
+                <p>Client Satisfaction</p>
+            </div>
+            <div class="metric-item">
+                <h4>24/7</h4>
+                <p>Priority Support</p>
+            </div>
+            <div class="metric-item">
+                <h4>0%</h4>
+                <p>Hidden Fees</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Features Section (Why GigPro) -->
+    <section id="platform" class="container reveal">
+        <div class="section-header">
+            <h2>A Professional Workflow, Simplified.</h2>
+            <p>Every feature in the GigPro app is optimized to deliver a secure, transparent, and seamless hiring experience for both clients and freelancers.</p>
+        </div>
+        
+        <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-search-dollar"></i></div>
+                <h3>Smart Talent Matching</h3>
+                <p>Our intelligent search algorithm connects your project requirements with the perfect expert in seconds. Browse portfolios, verified reviews, and transparent pricing upfront.</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Secure Escrow Payments</h3>
+                <p>Experience enterprise-level financial security. Your funds are held safely in escrow and are only released to the freelancer when you are 100% satisfied with the delivered work.</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                <h3>Seamless Communication</h3>
+                <p>Stay in sync no matter where you are. Use our built-in real-time chat, file sharing, and milestone tracking to keep your projects moving flawlessly from start to finish.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Interface Showcase -->
+    <section id="interface" class="showcase-bg">
+        <div class="container reveal">
+            <div class="section-header">
+                <h2>Designed for Productivity</h2>
+                <p>Take a look inside our clean, responsive, and performance-driven mobile application.</p>
+            </div>
+            <div class="screenshot-wrapper">
+                <div class="screenshot-grid">
+                    <!-- Placeholder Images (Replace with real app screenshots: shot.jpg, shot1.jpg, etc.) -->
+                    <div class="screenshot-item" onclick="openModal('shot.jpg')">
+                        <img src="shot.jpg" alt="GigPro Home Feed">
+                    </div>
+                    <div class="screenshot-item" onclick="openModal('shot1.jpg')">
+                        <img src="shot1.jpg" alt="GigPro Profile View">
+                    </div>
+                    <div class="screenshot-item" onclick="openModal('shot2.jpg')">
+                        <img src="shot2.jpg" alt="GigPro Order Tracking">
+                    </div>
+                    <div class="screenshot-item" onclick="openModal('shot3.jpg')">
+                        <img src="shot3.jpg" alt="GigPro Chat Interface">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Security & Trust -->
+    <section id="security" class="container reveal">
+        <div class="security-banner">
+            <div class="security-content">
+                <h2>Enterprise-Grade Trust & Safety</h2>
+                <p>GigPro mandates absolute respect for your business data and privacy. We operate independently of invasive third-party telemetry to ensure your projects remain strictly confidential.</p>
+                
+                <ul class="security-list">
+                    <li><i class="fas fa-check-circle"></i> <strong>Rigorous Vetting:</strong> Every Pro freelancer passes a strict identity and portfolio verification process.</li>
+                    <li><i class="fas fa-lock"></i> <strong>End-to-End Protection:</strong> All chats, file transfers, and transactions are secured with military-grade encryption.</li>
+                    <li><i class="fas fa-file-contract"></i> <strong>NDA Compliance:</strong> Built-in tools to enforce Non-Disclosure Agreements for sensitive intellectual property.</li>
+                </ul>
+            </div>
+            <div class="security-icon">
+                <i class="fas fa-handshake"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Download -->
+    <section id="download" class="container reveal">
+        <div class="download-box">
+            <i class="fas fa-layer-group app-logo"></i>
+            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">Your Next Big Project Starts Here.</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">Download the GigPro mobile app today and transform the way you hire talent or find freelance work.</p>
+            
+            <a href="gigpro.apk" download class="btn btn-primary" style="padding: 18px 48px; font-size: 1.1rem;">
+                <i class="fab fa-android" style="font-size: 1.3rem;"></i> Download GigPro APK
+            </a>
+            <span class="file-meta"><i class="fas fa-shield-check" style="color:var(--primary)"></i> Verified Secure Build v2.0</span>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 GigPro Marketplace. All rights reserved.</p>
+        <p>Empowering the Global Freelance Economy.</p>
+    </footer>
+
+    <!-- Fullscreen Image Modal -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <span class="close-btn">&times;</span>
+        <img id="modalImg" src="" alt="Enlarged App Interface">
+    </div>
+
+    <!-- Interaction Scripts -->
+    <script>
+        // Smooth Reveal Animation on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // Mobile Menu Logic
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuItems = document.querySelectorAll('.menu-item');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if(isMenuOpen) {
+                mobileMenu.classList.add('active');
+                menuToggle.children[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                menuToggle.children[1].style.opacity = '0';
+                menuToggle.children[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.remove('active');
+                menuToggle.children[0].style.transform = 'none';
+                menuToggle.children[1].style.opacity = '1';
+                menuToggle.children[2].style.transform = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuItems.forEach(item => item.addEventListener('click', toggleMenu));
+
+        // Image Modal Logic
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+
+        function openModal(src) {
+            modalImg.src = src;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
